@@ -8,6 +8,7 @@ A Minecraft GunGame Minigame plugin is a modification that can be added to Minec
   <li>Custom kill and death event (commands and sound)</li>
   <li>Custom messages</li>
   <li>Custom tier items</li>
+  <li>MySQL and MariaDB Database</li>
   <li>And more</li>
 </ul>
 
