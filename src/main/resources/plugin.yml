@@ -1,0 +1,6 @@
+name: GunGame
+author: M4h45amu7x
+version: 1.0.0
+main: xyz.mahasamut.gun_game.GunGame
+depend:
+  - PlaceholderAPI
