@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation(files("/libs/ConfigLib-Bukkit-2.2.0.jar"))
+    implementation("com.github.Exlll.ConfigLib:configlib-bukkit:v2.2.0")
     implementation("com.github.jonahseguin:drink:bb4458d9ce")
     implementation("fr.minuskube:netherboard-core:1.2.3")
     implementation("fr.minuskube:netherboard-bukkit:1.2.3")
