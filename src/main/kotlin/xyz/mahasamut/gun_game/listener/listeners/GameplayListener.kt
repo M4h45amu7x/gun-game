@@ -49,9 +49,15 @@ class GameplayListener : Listener {
 
         if (!WhiteListUtils.isAllow(player)) return
 
-        if (config.gameplay.deathSound.enable) player.playSound(
-            player.location, Sound.valueOf(config.gameplay.deathSound.value), 1f, 1f
+        if (config.gameplay.event.death.sound.enable) player.playSound(
+            player.location, Sound.valueOf(config.gameplay.event.death.sound.value), 1f, 1f
         )
+        if (config.gameplay.event.death.command.enable) {
+            for (command in config.gameplay.event.death.command.value) GunGame.instance.server.dispatchCommand(
+                if (command.startsWith("CONSOLE:")) GunGame.instance.server.consoleSender else player,
+                StringUtils.format(command, player)
+            )
+        }
 
         event.deathMessage = null
         event.drops.clear()
@@ -74,9 +80,15 @@ class GameplayListener : Listener {
             PlayerUtils.setPlayerTierItems(killer, playerData.tier)
         }
         killer.sendMessage(StringUtils.format(message.killer, killer, player))
-        if (config.gameplay.killSound.enable) killer.playSound(
-            killer.location, Sound.valueOf(config.gameplay.killSound.value), 1f, 1f
+        if (config.gameplay.event.kill.sound.enable) killer.playSound(
+            killer.location, Sound.valueOf(config.gameplay.event.kill.sound.value), 1f, 1f
         )
+        if (config.gameplay.event.kill.command.enable) {
+            for (command in config.gameplay.event.kill.command.value) GunGame.instance.server.dispatchCommand(
+                if (command.startsWith("CONSOLE:")) GunGame.instance.server.consoleSender else killer,
+                StringUtils.format(command, killer)
+            )
+        }
 
         DataManager.increaseDeath(player)
         player.sendMessage(StringUtils.format(message.killed, killer, player))

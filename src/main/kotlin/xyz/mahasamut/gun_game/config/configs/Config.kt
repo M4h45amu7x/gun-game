@@ -68,8 +68,7 @@ class Config(path: Path, properties: BukkitYamlProperties) : BukkitYamlConfigura
         var resetTierOnQuit = true
         var setExpRelatedToTier = true
         var autoRespawn = true
-        var killSound = Sound(true, "LEVEL_UP")
-        var deathSound = Sound(false, "ENDERMAN_DEATH")
+        var event = Event()
 
         @ElementType(TierItem::class)
         var tierItem = mapOf(
@@ -81,10 +80,22 @@ class Config(path: Path, properties: BukkitYamlProperties) : BukkitYamlConfigura
         )
 
         @ConfigurationElement
-        data class Sound(var enable: Boolean = false, var value: String = "")
+        class Event {
+            var kill = EventType(Sound(true, "LEVEL_UP"), Command(true, arrayListOf("CONSOLE:money give %player% 10")))
+            var death = EventType(Sound(false, "ENDERMAN_DEATH"), Command(true, arrayListOf("PLAYER:msg %player% LOL")))
+
+            @ConfigurationElement
+            class EventType(var sound: Sound = Sound(), var command: Command = Command())
+
+            @ConfigurationElement
+            class Sound(var enable: Boolean = false, var value: String = "")
+
+            @ConfigurationElement
+            class Command(var enable: Boolean = false, var value: ArrayList<String> = arrayListOf())
+        }
 
         @ConfigurationElement
-        data class TierItem(
+        class TierItem(
             var helmet: String = "",
             var chestplate: String = "",
             var leggings: String = "",
